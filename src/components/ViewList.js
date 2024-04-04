@@ -3,7 +3,7 @@ import styles from "./ViewList.module.css";
 import { useContext } from "react";
 import ModeContext from "../context/ModeContext";
 
-function ViewList({ list, sum, handlerDeleteItem, handlerEditItem }) {
+function ViewList({ list, sum, handlerDeleteItem, handlerEditItem, onEdit }) {
   const modeCtx = useContext(ModeContext);
   return (
     <div>
@@ -27,7 +27,14 @@ function ViewList({ list, sum, handlerDeleteItem, handlerEditItem }) {
               <td>{item.price}</td>
               <td>{item.discount}</td>
               <td>{item.total.toFixed(2)}</td>
-              <td onClick={() => handlerEditItem(item.id)}>✍</td>
+              <td
+                onClick={() => {
+                  handlerEditItem(item.id);
+                  onEdit();
+                }}
+              >
+                ✍
+              </td>
               <td onClick={() => handlerDeleteItem(item.id)}>❌</td>
             </tr>
           ))}

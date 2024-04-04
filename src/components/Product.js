@@ -20,6 +20,7 @@ function Product() {
     price: 0,
     discount: 0,
   });
+  const [showForm, setShowForm] = useState(false);
   // const [sumTotal, setSumTotal] = useState(0);
 
   /*
@@ -64,10 +65,11 @@ function Product() {
       if (item.id === id) {
         return {
           ...item,
-          quantity: form.quantity,
+          quantity: Number(form.quantity),
           name: form.name,
-          price: form.price,
-          discount: form.discount,
+          price: Number(form.price),
+          discount: Number(form.discount),
+          total: (form.quantity * form.price * (100 - form.discount)) / 100,
         };
       }
       return item; // Return the original item if the condition doesn't match
@@ -76,6 +78,8 @@ function Product() {
     setList(newList);
   };
 
+  const onEdit = () => setShowForm(true);
+  const onCancel = () => setShowForm(false);
   //---------------------------------------------------------------------------
 
   return (
@@ -87,8 +91,16 @@ function Product() {
         sum={total}
         handlerDeleteItem={handlerDeleteProduct}
         handlerEditItem={handlerEditProduct}
+        onEdit={onEdit}
       />
-      <EditForm form={form} editForm={setForm} updateList={updateList} />
+      {showForm && (
+        <EditForm
+          form={form}
+          editForm={setForm}
+          updateList={updateList}
+          onCancel={onCancel}
+        />
+      )}
     </div>
   );
 }

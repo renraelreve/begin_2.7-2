@@ -3,7 +3,7 @@ import styles from "./ViewList.module.css";
 import { useContext } from "react";
 import ModeContext from "../context/ModeContext";
 
-function EditForm({ form, editForm, updateList }) {
+function EditForm({ form, editForm, updateList, onCancel }) {
   const modeCtx = useContext(ModeContext);
 
   const updateName = (name) => {
@@ -25,6 +25,7 @@ function EditForm({ form, editForm, updateList }) {
   function handleSubmit(event) {
     event.preventDefault();
     updateList(form.id);
+    onCancel();
   }
 
   return (
@@ -74,6 +75,7 @@ function EditForm({ form, editForm, updateList }) {
         </table>
       </div>
       <button>Update</button>
+      <button onClick={onCancel}>Cancel</button>
     </form>
   );
 }
