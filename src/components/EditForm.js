@@ -25,7 +25,7 @@ function EditForm({ form, editForm, updateList, onCancel }) {
   function handleSubmit(event) {
     event.preventDefault();
     updateList(form.id);
-    onCancel();
+    onCancel(); //set the showForm state as false and hide the form once we submit the update
   }
 
   return (
@@ -75,7 +75,8 @@ function EditForm({ form, editForm, updateList, onCancel }) {
         </table>
       </div>
       <button>Update</button>
-      <button onClick={onCancel}>Cancel</button>
+      <button onClick={onCancel}>Cancel</button>{" "}
+      {/* set the showForm state as false and hide the form */}
     </form>
   );
 }

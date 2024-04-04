@@ -3,7 +3,14 @@ import styles from "./ViewList.module.css";
 import { useContext } from "react";
 import ModeContext from "../context/ModeContext";
 
-function ViewList({ list, sum, handlerDeleteItem, handlerEditItem, onEdit }) {
+function ViewList({
+  list,
+  sum,
+  handlerDeleteItem,
+  handlerEditItem,
+  onEdit,
+  isEditing,
+}) {
   const modeCtx = useContext(ModeContext);
   return (
     <div>
@@ -35,7 +42,13 @@ function ViewList({ list, sum, handlerDeleteItem, handlerEditItem, onEdit }) {
               >
                 ✍
               </td>
-              <td onClick={() => handlerDeleteItem(item.id)}>❌</td>
+              <td
+                onClick={() => {
+                  !isEditing && handlerDeleteItem(item.id); //isEditing is true, then !isEditing will shortcircuit and disable the delete handler
+                }}
+              >
+                ❌
+              </td>
             </tr>
           ))}
         </tbody>

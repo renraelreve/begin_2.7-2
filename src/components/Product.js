@@ -43,7 +43,7 @@ function Product() {
 
   const handlerEditProduct = (id) => {
     const newForm = list.filter((item) => item.id === id);
-    setForm(newForm[0]);
+    setForm(newForm[0]); //filter the array to extract the object with the id to be edited
   };
 
   const handlerDeleteProduct = (id) => {
@@ -71,15 +71,15 @@ function Product() {
           discount: Number(form.discount),
           total: (form.quantity * form.price * (100 - form.discount)) / 100,
         };
-      }
+      } // will find the object within the array with the id to be edited
       return item; // Return the original item if the condition doesn't match
     });
-    // Now you should do something with newList, for example, update the state
-    setList(newList);
+
+    setList(newList); // update the newList and the current state of List
   };
 
-  const onEdit = () => setShowForm(true);
-  const onCancel = () => setShowForm(false);
+  const onEdit = () => setShowForm(true); // once edit button is pressed, the showForm state will become true
+  const onCancel = () => setShowForm(false); // once this handler is activated, the showForm state will become false
   //---------------------------------------------------------------------------
 
   return (
@@ -92,7 +92,9 @@ function Product() {
         handlerDeleteItem={handlerDeleteProduct}
         handlerEditItem={handlerEditProduct}
         onEdit={onEdit}
+        isEditing={showForm}
       />
+      {/* will load the component only when showForm is true. if false it will shortcircuit and component will not load */}
       {showForm && (
         <EditForm
           form={form}
